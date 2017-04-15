@@ -31,8 +31,8 @@ export default {
   props: ['choice'],
 
   methods: {
-    choosen (id) {
-      this.$emit('choosen', id)
+    choosen (choiceId, optionId) {
+      this.$emit('choosen', choiceId, optionId)
     }
   }
 }

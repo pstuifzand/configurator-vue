@@ -5,7 +5,7 @@
          v-for="option in left"
          :option="option" :key="option.id"
          :choice-id="choice.id"
-         @selected="choosen(choice.id)"
+         @selected="choosen"
          >
       </config-choice-option>
     </div>
@@ -15,7 +15,7 @@
          v-for="option in right"
          :option="option" :key="option.id"
          :choice-id="choice.id"
-         @selected="choosen(choice.id)"
+         @selected="choosen"
          >
       </config-choice-option>
     </div>
@@ -35,8 +35,8 @@ export default {
   props: ['choice'],
 
   methods: {
-    choosen (id) {
-      this.$emit('choosen', id)
+    choosen (choiceId, optionId) {
+      this.$emit('choosen', choiceId, optionId)
     }
   },
 

@@ -6,7 +6,10 @@
        :choice="choice"
        @choosen="choosen"
      />
+
+    <config-result :value="this.calculation" />
   </div>
+
 </template>
 
 <style lang="sass">
@@ -17,37 +20,50 @@
 import _ from 'lodash'
 import axios from 'axios'
 import Choice from './Choice'
+import Calculation from './Calculation'
 
 export default {
   name: 'configurator',
 
   components: {
-    'config-choice': Choice
+    'config-choice': Choice,
+    'config-result': Calculation
   },
 
   mounted () {
-    axios.get('http://localhost:8002/').then(response => {
-      this.choices = response.data
-    })
+    this.reloadChoices()
   },
 
   data () {
     return {
-      choices: []
+      choices: [],
+      params: {},
+      calculation: []
     }
   },
 
   methods: {
-    choosen (id) {
+    reloadChoices () {
+      let params = this.params
+      axios.get('http://localhost:8002/', { 'params': params }).then(response => {
+        this.choices = response.data.choices
+        this.calculation = response.data.result
+      })
+    },
+
+    choosen (choiceId, optionId) {
+      this.params['choice[' + choiceId + ']'] = optionId
+
       _.each(this.choices, (x) => {
-        if (x.id === id) {
+        if (x.id === choiceId) {
           x.selected = true
           return false
         }
       })
 
-      this.openNext(id)
+      this.reloadChoices()
     },
+
     openNext (id) {
       let next = 0
       _.each(this.choices, (x) => {
