@@ -2,7 +2,7 @@
   <div class="field">
     <p class="control is-expanded">
       <label class="radio" style="width:100%">
-        <input type="radio" class="radio" :name="this.name" @change="changeSelected(choiceId)">
+        <input type="radio" class="radio" :name="this.name" @click="changeSelected(choiceId)">
         {{ option.title }}
       </label>
     </p>

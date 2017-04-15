@@ -4,7 +4,7 @@
       <div class="field">
         <p class="control is-expanded">
           <span class="select is-fullwidth">
-            <select :name="choice.name" @change="choosen(choice.id)">
+            <select :name="choice.name" @click="choosen(choice.id)">
               <option :value="option.id" v-for="option in choice.options">
                 {{ option.title }}
               </option>
